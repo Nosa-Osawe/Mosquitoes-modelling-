@@ -34,8 +34,6 @@ var(omo$Anopheles)
 
 ###  
 
-
-
 Anopheles_pred <- glmer(Anopheles ~ scale(Turbidity)* DO + Chloride* Depth+  (1|Ecozones),
                       data = omo,
                       family = poisson(link = "log"))
