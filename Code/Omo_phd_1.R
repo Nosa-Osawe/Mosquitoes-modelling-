@@ -72,6 +72,20 @@ summary(Aedes_pred)
 
 ####################################################################################
 
+culex_pred <- glmer(Cules ~ scale(Turbidity) +
+                      scale(pH)+
+                      scale(Nitrate)+
+                      scale(BOD)+
+                      scale(DO)*
+                      scale(TDS)+
+                      (1|Ecozones)+ (1|Habitat),
+                    data = omo,  
+                    family = poisson(link = "log"))
+summary(culex_pred)
+
+
+
+# Calcium, Colour, 
 
 
           ### Correlation of parameters
