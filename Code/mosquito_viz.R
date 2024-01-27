@@ -1,7 +1,24 @@
 
+library(tidyverse)
 
 
-length(unique(omo$Habitat))
+omo_Data <- read.csv("C:\\Users\\HP\\Desktop\\Dr Omoregir\\Phd_Omo\\Updated_Omo_Phd.csv",
+                     stringsAsFactors = TRUE)
+view(omo_Data)
+
+str(omo_Data)
+####  Data cleaning
+length(colnames(omo_Data))  
+
+omo<- omo_Data[,1:24]    
+view(omo)
+
+sum(is.na(omo))  ###  No missing value
+length(omo)
+
+attach(omo)
+
+length(unique(omo$Habitat)) ## see the unique types of habitat
 attach(omo)
 
 # Define lighter colors for the manual fill scale
@@ -33,6 +50,7 @@ omo$Habitat <- factor(omo$Habitat, levels = c("Containers",
                size = 5, alpha = 0.6)+ 
     scale_fill_manual(values = very_light_fill_manual)+
     scale_color_manual(values = fill_manual)+ 
+    labs(x = "Habitat", y = "Culex spp. abundance")+
     theme_bw()
 
   ## Aedes sp. abundance
@@ -45,7 +63,8 @@ omo$Habitat <- factor(omo$Habitat, levels = c("Containers",
                                                dodge.width = 0.8),
                size = 5, alpha = 0.6)+ 
     scale_fill_manual(values = very_light_fill_manual)+
-    scale_color_manual(values = fill_manual)+ 
+    scale_color_manual(values = fill_manual)+
+    labs(x = "Habitat", y = "Aedes spp. abundance")+
     theme_bw()
   
   ## Anopheles sp. abundance
@@ -58,5 +77,6 @@ omo$Habitat <- factor(omo$Habitat, levels = c("Containers",
                                                dodge.width = 0.8),
                size = 5, alpha = 0.6)+ 
     scale_fill_manual(values = very_light_fill_manual)+
-    scale_color_manual(values = fill_manual)+ 
+    scale_color_manual(values = fill_manual)+
+    labs(x = "Habitat", y = "Anopheles spp. abundance")+
     theme_bw()

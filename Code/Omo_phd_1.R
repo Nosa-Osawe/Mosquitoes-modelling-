@@ -39,18 +39,14 @@ Anopheles_pred <- glmer(Anopheles ~ scale(Turbidity)* DO + Chloride* Depth+  (1|
                       family = poisson(link = "log"))
 summary(Anopheles_pred)
 
-
-Anopheles_pred <- glmer(Anopheles ~ scale(Turbidity)* DO + Chloride+Depth+  (1|Ecozones),
+ 
+Anopheles_pred2 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) + scale(Cules)+scale(Depth)+
+                           scale(Magnesium) + 
+                           (1|Ecozones),
                         data = omo,
                         family = poisson(link = "log"))
-summary(Anopheles_pred)
+summary(Anopheles_pred2)
 
 
-unique(omo$Habitat)
-
-
-length(levels(omo$Habitat))
-
-
-  
+anova(Anopheles_pred,Anopheles_pred2 )
   
