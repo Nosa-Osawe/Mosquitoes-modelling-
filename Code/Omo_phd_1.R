@@ -102,5 +102,51 @@ corrplot(cor_matrix,
          tl.col = 'black',
          number.cex = 0.5) # font size
 
+########################################################################################
 
-  
+anopheles_compare <- glm.nb(Anopheles ~ Habitat,
+                    data = omo,
+                    link = log)
+summary(anopheles_compare)        ### No sig. difference
+
+
+aedes_compare <- glm.nb(Aedes ~ Habitat,
+                            data = omo,
+                            link = log)
+summary(aedes_compare)          ### No sig. difference
+
+
+
+
+culex_compare <- glm.nb(Cules ~ Habitat,
+                        data = omo,
+                        link = log)
+summary(culex_compare)
+
+
+omo$Habitat <- factor(omo$Habitat, levels = c("Containers",
+                                              "Gutters",
+                                              "Puddles",
+                                              "Tyre track",
+                                              "Used Tyres"))
+
+
+omo$Habitat <- factor(omo$Habitat, levels = c(
+                                              "Gutters","Containers",
+                                              "Puddles",
+                                              "Tyre track",
+                                              "Used Tyres"))
+
+
+omo$Habitat <- factor(omo$Habitat, levels = c("Puddles",
+  "Gutters","Containers",
+  "Tyre track",
+  "Used Tyres"))  
+
+omo$Habitat <- factor(omo$Habitat, levels = c("Tyre track","Puddles",
+                                              "Gutters","Containers",
+                                              "Used Tyres")) 
+
+omo$Habitat <- factor(omo$Habitat, levels = c("Used Tyres","Tyre track","Puddles",
+                                              "Gutters","Containers"
+                                              )) 
