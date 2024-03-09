@@ -44,6 +44,8 @@ Anopheles_pred1 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) +
                         family = poisson(link = "log"))
 summary(Anopheles_pred1)### this is the best model, thus far!
 
+
+
 Anopheles_pred2 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) +
                             scale(Cules)+
                            scale(Aedes)+scale(Depth)+
@@ -52,6 +54,8 @@ Anopheles_pred2 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) +
                          data = omo,
                          family = poisson(link = "log"))
 summary(Anopheles_pred2)   
+confint(Anopheles_pred2)
+
 
 
 anova(Anopheles_pred1,Anopheles_pred2)
@@ -69,7 +73,7 @@ Aedes_pred<- glmer(Aedes ~
                      data = omo,
                      family = poisson(link = "log"))
 summary(Aedes_pred)
-
+confint(Aedes_pred)
 ####################################################################################
 
 culex_pred <- glmer(Cules ~ scale(Turbidity) +

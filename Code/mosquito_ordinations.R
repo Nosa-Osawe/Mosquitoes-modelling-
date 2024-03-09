@@ -99,10 +99,22 @@ fviz_pca_var(omo.pca, col.var = "cos2",
              repel = TRUE # Avoid text overlapping
 )
 
+fviz_pca_ind(omo.pca, col.ind = "cos2", pointsize = "cos2",
+             pointshape = 21, fill = "#E7B800", 
+             repel = TRUE) # Avoid text overlapping (slow if many points)
+
+fviz_pca_var(omo.pca, col.var = "contrib",
+             gradient.cols = c("red", "#E7B800", "darkgreen"),
+             repel = TRUE # Avoid text overlapping
+)
+fviz_contrib(omo.pca, choice = "var", axes = 1)
+fviz_contrib(omo.pca, choice = "var", axes = 2)
+
 omo.pca$var$cos2
 omo.pca$var$coord
+omo.pca$ind$contrib
 
-
+length(omo$Location)
 
 
 
