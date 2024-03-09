@@ -114,14 +114,20 @@ fviz_contrib(omo.pca, choice = "var", axes = 2)
 omo.pca$ind$cos2
 omo.pca$ind$cos2
 
-co2_ind_dataframe <- as.data.frame(omo.pca$ind$coord)
-co2_ind_dataframe12<- co2_ind_dataframe[,1:2]   
+coordinate_ind <- as.data.frame(omo.pca$ind$coord)
+coordinate_ind12<- coordinate_ind[,1:2]   
 
-co2_ind_viz_data <- as.data.frame(cbind((omo[,1:3]),
-                                        co2_ind_dataframe12))
-view(co2_ind_viz_data)
+coordinate_ind123 <- as.data.frame(cbind((omo[,1:3]),
+                                         coordinate_ind12))
+head(coordinate_ind123)
 
-length(unique(co2_ind_viz_data$Ecozones))
+quality_of_rep_ind <- as.data.frame(omo.pca$ind$cos2)
+quality_of_rep_ind12<- quality_of_rep_ind[,1:2]   
+quality_of_rep_ind12<- quality_of_rep_ind12 %>% 
+  rename(CO2.Dim.1 = Dim.1, 
+         CO2.Dim.2 = Dim.2)
+ind_viz_data <- cbind(coordinate_ind123, quality_of_rep_ind12)
+head(ind_viz_data)
 
 
 co2_var_dataframe12 <-  as.data.frame(omo.pca$var$coord[,1:2])
@@ -178,16 +184,15 @@ final_PCA <- ggplot() +
 #############################################################################################
 
 final_PCA <- ggplot() +
-  geom_point(data = co2_ind_viz_data, 
+  geom_point(data = ind_viz_data, 
              aes(x = Dim.1, y = Dim.2, 
                  color = Habitat, fill = Habitat, 
                  shape  = Ecozones),
              size = 3) + 
-  stat_ellipse(data = co2_ind_viz_data,  
+  stat_ellipse(data = ind_viz_data,  
                geom = "polygon", 
                aes(x = Dim.1, y = Dim.2, group = Habitat, fill = Habitat),
                level = 0.90, 
-               linewidth = 1,
                alpha = 0.1,
                show.legend = NA)+ 
   scale_fill_manual(values = c("Containers" = "orange",
@@ -201,7 +206,7 @@ final_PCA <- ggplot() +
   scale_color_manual(values = c("orange", "blue", "darkgreen", "red","purple"))+
   theme(
     text = element_text(family = "Times New Roman", size = 20),
-    axis.line = element_line(color = "black", size = 0.5) 
   ) + labs(x = "PCA 1", y = "PCA 2")+
-  theme_minimal()
-
+  theme_minimal() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "black")
