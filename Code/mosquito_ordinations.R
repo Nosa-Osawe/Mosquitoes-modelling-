@@ -110,6 +110,33 @@ fviz_pca_var(omo.pca, col.var = "contrib",
 fviz_contrib(omo.pca, choice = "var", axes = 1)
 fviz_contrib(omo.pca, choice = "var", axes = 2)
 
+
+omo.pca$ind$cos2
+omo.pca$ind$cos2
+
+co2_ind_dataframe <- as.data.frame(omo.pca$ind$coord)
+co2_ind_dataframe12<- co2_ind_dataframe[,1:2]   
+
+co2_ind_viz_data <- as.data.frame(cbind((omo[,1:3]),
+                                        co2_ind_dataframe12))
+view(co2_ind_viz_data)
+
+length(unique(co2_ind_viz_data$Ecozones))
+
+
+co2_var_dataframe12 <-  as.data.frame(omo.pca$var$coord[,1:2])
+
+co2_var<- cbind(row.names(co2_var_dataframe12),co2_var_dataframe12) 
+ row.names(co2_var)  <- NULL     
+head(co2_var) 
+
+co2_var <- co2_var %>% 
+  rename(parameter = "row.names(co2_var_dataframe12)",
+         PCA1 = Dim.1, 
+         PCA2 = Dim.2)
+head(co2_var) 
+head(co2_ind_viz_data)
+co2_var<- as.data.frame(co2_var)
 omo.pca$var$cos2
 omo.pca$var$coord
 omo.pca$ind$contrib
@@ -117,4 +144,64 @@ omo.pca$ind$contrib
 length(omo$Location)
 
 
+final_PCA <- ggplot() +
+  geom_point(data = co2_ind_viz_data, 
+             aes(x = Dim.1, y = Dim.2, 
+                 color = Ecozones, fill = Ecozones, 
+             shape  = factor(Habitat)),
+             size = 3) + 
+  stat_ellipse(data = co2_ind_viz_data,  
+               geom = "polygon", 
+               aes(x = Dim.1, y = Dim.2, group = Ecozones, fill = Ecozones),
+               level = 0.95, 
+               linewidth = 0.1,
+               alpha = 0.1,
+               show.legend = NA)+ 
+  scale_fill_manual(values = c("Containers" = "orange",
+                               "Gutters" = "blue",
+                               "Puddles" = "darkgreen",
+                               "Tyre track"= "red",
+                               "Used Tyres" = "purple",
+                               "Derived Savanna"= "orange",
+                               "Freshwater Swamp" = "blue",
+                               "Lowland Rainforest"= "darkgreen")) +
+  scale_color_manual(values = c("orange", "blue", "darkgreen", "red","purple"))+
+  geom_text(data = co2_var, aes(x = PCA1, y = PCA2, label = parameter),
+            position = position_jitter(width = 0.1, height = 0.1))+ 
+  theme(
+    text = element_text(family = "Times New Roman", size = 20),
+    axis.line = element_line(color = "black", size = 0.5) 
+  ) + labs(x = "PCA 1", y = "PCA 2")+
+  theme_minimal()
+
+
+#############################################################################################
+
+final_PCA <- ggplot() +
+  geom_point(data = co2_ind_viz_data, 
+             aes(x = Dim.1, y = Dim.2, 
+                 color = Habitat, fill = Habitat, 
+                 shape  = Ecozones),
+             size = 3) + 
+  stat_ellipse(data = co2_ind_viz_data,  
+               geom = "polygon", 
+               aes(x = Dim.1, y = Dim.2, group = Habitat, fill = Habitat),
+               level = 0.90, 
+               linewidth = 1,
+               alpha = 0.1,
+               show.legend = NA)+ 
+  scale_fill_manual(values = c("Containers" = "orange",
+                               "Gutters" = "blue",
+                               "Puddles" = "darkgreen",
+                               "Tyre track"= "red",
+                               "Used Tyres" = "purple",
+                               "Derived Savanna"= "orange",
+                               "Freshwater Swamp" = "blue",
+                               "Lowland Rainforest"= "darkgreen")) +
+  scale_color_manual(values = c("orange", "blue", "darkgreen", "red","purple"))+
+  theme(
+    text = element_text(family = "Times New Roman", size = 20),
+    axis.line = element_line(color = "black", size = 0.5) 
+  ) + labs(x = "PCA 1", y = "PCA 2")+
+  theme_minimal()
 
