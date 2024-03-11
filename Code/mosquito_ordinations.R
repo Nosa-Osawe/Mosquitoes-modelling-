@@ -196,17 +196,17 @@ final_PCA <- ggplot() +
                alpha = 0.1,
                show.legend = NA)+ 
   scale_fill_manual(values = c("Containers" = "orange",
-                               "Gutters" = "blue",
-                               "Puddles" = "darkgreen",
-                               "Tyre track"= "red",
-                               "Used Tyres" = "purple",
+                               "Gutters" = "red",
+                               "Puddles" = "black",
+                               "Tyre track"= "brown",
+                               "Used Tyres" = "darkgreen",
                                "Derived Savanna"= "orange",
                                "Freshwater Swamp" = "blue",
                                "Lowland Rainforest"= "darkgreen")) +
-  scale_color_manual(values = c("orange", "blue", "darkgreen", "red","purple"))+
+  scale_color_manual(values = c("orange", "red", "black", "brown","darkgreen"))+
   theme(
     text = element_text(family = "Times New Roman", size = 20),
-  ) + labs(x = "PCA 1", y = "PCA 2")+
+  ) + labs(x = "Dim1 (41.2%)", y = "Dim2 (14.3%)")+
   theme_minimal() +
   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "black")

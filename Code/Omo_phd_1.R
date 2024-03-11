@@ -154,3 +154,13 @@ omo$Habitat <- factor(omo$Habitat, levels = c("Tyre track","Puddles",
 omo$Habitat <- factor(omo$Habitat, levels = c("Used Tyres","Tyre track","Puddles",
                                               "Gutters","Containers"
                                               )) 
+
+
+omo_mosquito_summary <- as.data.frame(omo %>% group_by(Habitat) %>% 
+  summarise(mean_anopheles = mean(Anopheles),
+                  sd_anopheles = sd(Anopheles),
+                  mean_culex = mean(Cules),
+                  sd_culex= sd(Cules),
+            mean_aedes = mean(Aedes),
+            sd_aedes = sd(Aedes)))
+write.csv(omo_mosquito_summary, "C:\\Users\\HP\\Documents\\Mosquitoes-modelling-\\Data\\omo_mosquito_summary.csv")
