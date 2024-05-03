@@ -4,6 +4,8 @@ library(tidyverse)
 library(MASS)
 library(ggfortify)
 library(corrplot)
+library(multcomp)
+library(emmeans)
 
 omo_Data <- read.csv("C:\\Users\\HP\\Documents\\Mosquitoes-modelling-\\Data\\Updated_Omo_Phd.csv",
                      stringsAsFactors = TRUE)
@@ -107,54 +109,43 @@ corrplot(cor_matrix,
          number.cex = 0.5) # font size
 
 ########################################################################################
+nb_glm_omo <- omo
+nb_glm_omo$Aedes <- nb_glm_omo$Aedes + 1
+nb_glm_omo$Anopheles <- nb_glm_omo$Anopheles + 1
+nb_glm_omo$Cules <- nb_glm_omo$Cules + 1
+
 
 anopheles_compare <- glm.nb(Anopheles ~ Habitat,
-                    data = omo,
+                    data = nb_glm_omo,
                     link = log)
 summary(anopheles_compare)        ### No sig. difference
+multi_comp_anopheles <- glht(anopheles_compare,
+                             linfct = mcp(Habitat = "Tukey"))
+summary(multi_comp_anopheles)
 
+emm_anopheles <- emmeans(anopheles_compare, ~ Habitat)
+summary(emm_anopheles)
+#-----------------------------------------------------------------
 
 aedes_compare <- glm.nb(Aedes ~ Habitat,
-                            data = omo,
+                            data = nb_glm_omo,
                             link = log)
 summary(aedes_compare)          ### No sig. difference
+multi_comp_aedes <- glht(aedes_compare, linfct = mcp(Habitat = "Tukey"))
+summary(multi_comp_aedes)
 
+# -----------------------------------------------------------------
 
-
-
-culex_compare <- glm.nb(Cules ~ Habitat,
-                        data = omo,
+culex_compare <- glm.nb(Cules ~ Habitat, 
+                        data = nb_glm_omo,
                         link = log)
 summary(culex_compare)
+multi_comp_culex <- glht(culex_compare, linfct = mcp(Habitat = "Tukey"))
+summary(multi_comp_culex)
 
+# ------------------------------------------------------------------
 
-omo$Habitat <- factor(omo$Habitat, levels = c("Containers",
-                                              "Gutters",
-                                              "Puddles",
-                                              "Tyre track",
-                                              "Used Tyres"))
-
-
-omo$Habitat <- factor(omo$Habitat, levels = c(
-                                              "Gutters","Containers",
-                                              "Puddles",
-                                              "Tyre track",
-                                              "Used Tyres"))
-
-
-omo$Habitat <- factor(omo$Habitat, levels = c("Puddles",
-  "Gutters","Containers",
-  "Tyre track",
-  "Used Tyres"))  
-
-omo$Habitat <- factor(omo$Habitat, levels = c("Tyre track","Puddles",
-                                              "Gutters","Containers",
-                                              "Used Tyres")) 
-
-omo$Habitat <- factor(omo$Habitat, levels = c("Used Tyres","Tyre track","Puddles",
-                                              "Gutters","Containers"
-                                              )) 
-
+# -       Descriptive statistics
 
 omo_mosquito_summary <- as.data.frame(omo %>% group_by(Habitat) %>% 
   summarise(mean_anopheles = mean(Anopheles),
