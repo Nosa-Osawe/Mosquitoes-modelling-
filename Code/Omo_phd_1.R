@@ -18,10 +18,10 @@ length(colnames(omo_Data))
 omo<- omo_Data[,1:24]    
 view(omo)
 
-sum(is.na(omo))  ###  No missing value
-length(omo)
 
 attach(omo)
+sum(is.na(omo))  ###  No missing value
+length(omo)
 ### check data distribution 
 
 hist(omo$Anopheles)
@@ -60,7 +60,7 @@ confint(Anopheles_pred2)
 
 
 
-anova(Anopheles_pred1,Anopheles_pred2)
+anova(Anopheles_pred3,Anopheles_pred2)
 
 ################################################################################
 
