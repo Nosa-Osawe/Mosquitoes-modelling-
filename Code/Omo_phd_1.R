@@ -17,7 +17,7 @@ length(colnames(omo_Data))
 
 omo<- omo_Data[,1:24]    
 view(omo)
-
+attach(omo)
 
 attach(omo)
 sum(is.na(omo))  ###  No missing value
@@ -46,21 +46,15 @@ Anopheles_pred1 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) +
                         family = poisson(link = "log"))
 summary(Anopheles_pred1)### this is the best model, thus far!
 
-
-
-Anopheles_pred2 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) +
-                            scale(Cules)+
-                           scale(Aedes)+scale(Depth)+
+Anopheles_pred_new <- glmer(Anopheles ~ scale(Turbidity)+
                            scale(Magnesium) + 
                            (1|Ecozones)+ (1|Habitat),
                          data = omo,
                          family = poisson(link = "log"))
-summary(Anopheles_pred2)   
-confint(Anopheles_pred2)
+summary(Anopheles_pred_new)
+confint(Anopheles_pred_new)
 
 
-
-anova(Anopheles_pred3,Anopheles_pred2)
 
 ################################################################################
 
@@ -76,6 +70,21 @@ Aedes_pred<- glmer(Aedes ~
                      family = poisson(link = "log"))
 summary(Aedes_pred)
 confint(Aedes_pred)
+
+
+
+Aedes_pred_new<- glmer(Aedes ~ 
+                     scale(Anopheles) +
+                       scale(Suspended.Solid)+
+                     scale(TDS)+
+                     scale(Chloride)+
+                       scale(Colour)+
+                     (1|Ecozones)+ (1|Habitat),
+                   data = omo,
+                   family = poisson(link = "log"))
+summary(Aedes_pred_new)
+
+
 ####################################################################################
 
 culex_pred <- glmer(Cules ~ scale(Turbidity) +
@@ -89,6 +98,18 @@ culex_pred <- glmer(Cules ~ scale(Turbidity) +
                     family = poisson(link = "log"))
 summary(culex_pred)
 
+
+
+culex_pred_new <- glmer(Cules ~ scale(Turbidity) +
+                      scale(pH)+
+                      scale(Nitrate)+
+                      scale(TDS)+
+                      scale(Anopheles)+
+                      scale(pH)+
+                      (1|Ecozones)+ (1|Habitat),
+                    data = omo,  
+                    family = poisson(link = "log"))
+summary(culex_pred_new)
 
 
 # Calcium, Colour, 
