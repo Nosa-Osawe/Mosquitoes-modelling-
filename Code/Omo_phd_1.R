@@ -6,6 +6,7 @@ library(ggfortify)
 library(corrplot)
 library(multcomp)
 library(emmeans)
+library(car)
 
 omo_Data <- read.csv("C:\\Users\\HP\\Documents\\Mosquitoes-modelling-\\Data\\Updated_Omo_Phd.csv",
                      stringsAsFactors = TRUE)
@@ -34,6 +35,11 @@ omo$Anopheles_T <- log((omo$Anopheles)+1)
 mean(omo$Anopheles)
 var(omo$Anopheles)
 
+normalize <- function(x) {
+  return((x - min(x)) / (max(x) - min(x)))
+}
+
+normalize(omo$Turbidity)
 ###  
 
 ### WE are done with the anopheles model
@@ -47,11 +53,15 @@ Anopheles_pred1 <- glmer(Anopheles ~ scale(Turbidity)* scale(DO) +
 summary(Anopheles_pred1)### this is the best model, thus far!
 
 Anopheles_pred_new <- glmer(Anopheles ~ scale(Turbidity)+
-                           scale(Magnesium) + 
+                              scale(Magnesium) + 
+                              scale(pH)+
                            (1|Ecozones)+ (1|Habitat),
                          data = omo,
                          family = poisson(link = "log"))
 summary(Anopheles_pred_new)
+vif(Anopheles_pred_new)
+
+
 confint(Anopheles_pred_new)
 
 
@@ -102,14 +112,25 @@ summary(culex_pred)
 
 culex_pred_new <- glmer(Cules ~ scale(Turbidity) +
                       scale(pH)+
-                      scale(Nitrate)+
-                      scale(TDS)+
-                      scale(Anopheles)+
-                      scale(pH)+
-                      (1|Ecozones)+ (1|Habitat),
+                        scale(Nitrate)+
+                        scale(TDS)+
+                        scale(Anopheles)+
+                      (1|Habitat) + (1|Ecozones),
                     data = omo,  
                     family = poisson(link = "log"))
 summary(culex_pred_new)
+
+#
+culex_play <- glmer(Cules ~ scale(Turbidity) +
+                       scale(Nitrate)+
+                      scale(TDS)+
+                      scale(pH)+
+                     # scale(Anopheles)+
+                          (1|Habitat) + (1|Ecozones),
+                        data = omo,  
+                        family = poisson(link = "log"))
+summary(culex_play)
+
 
 
 # Calcium, Colour, 
