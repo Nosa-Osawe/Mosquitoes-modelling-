@@ -67,10 +67,16 @@ biplot_mosq <-fviz_ca_biplot(res.ca.mosq, alpha.col = 0.5,
                              col.col = "black", 
                              col.row = "red",
                              pointsize = 2.5, size.text = 2)+
-  theme_classic()
+  theme_classic()+
+ # Italicize all text
+
 
 mosq.desc <- dimdesc(res.ca.mosq, axes = 1:2)
 mosq.desc
+
+
+res.ca.mosq$col$coord
+res.ca.mosq$row$cos2
 
 ###########################################################################
 
