@@ -8,7 +8,7 @@ library(multcomp)
 library(emmeans)
 library(car)
 
-omo_Data <- read.csv("C:\\Users\\HP\\Documents\\Mosquitoes-modelling-\\Data\\Updated_Omo_Phd.csv",
+omo_Data <- read.csv("C:\\Users\\DELL\\Documents\\Git in R\\Mosquitoes-modelling-\\Data\\Updated_Omo_Phd.csv",
                      stringsAsFactors = TRUE)
 view(omo_Data)
 

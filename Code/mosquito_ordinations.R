@@ -146,44 +146,15 @@ co2_var<- as.data.frame(co2_var)
 omo.pca$var$cos2
 omo.pca$var$coord
 omo.pca$ind$contrib
-
+omo.pca$var$contrib
 length(omo$Location)
 
 
-final_PCA <- ggplot() +
-  geom_point(data = co2_ind_viz_data, 
-             aes(x = Dim.1, y = Dim.2, 
-                 color = Ecozones, fill = Ecozones, 
-             shape  = factor(Habitat)),
-             size = 3) + 
-  stat_ellipse(data = co2_ind_viz_data,  
-               geom = "polygon", 
-               aes(x = Dim.1, y = Dim.2, group = Ecozones, fill = Ecozones),
-               level = 0.95, 
-               linewidth = 0.1,
-               alpha = 0.1,
-               show.legend = NA)+ 
-  scale_fill_manual(values = c("Containers" = "orange",
-                               "Gutters" = "blue",
-                               "Puddles" = "darkgreen",
-                               "Tyre track"= "red",
-                               "Used Tyres" = "purple",
-                               "Derived Savanna"= "orange",
-                               "Freshwater Swamp" = "blue",
-                               "Lowland Rainforest"= "darkgreen")) +
-  scale_color_manual(values = c("orange", "blue", "darkgreen", "red","purple"))+
-  geom_text(data = co2_var, aes(x = PCA1, y = PCA2, label = parameter),
-            position = position_jitter(width = 0.1, height = 0.1))+ 
-  theme(
-    text = element_text(family = "Times New Roman", size = 20),
-    axis.line = element_line(color = "black", size = 0.5) 
-  ) + labs(x = "PCA 1", y = "PCA 2")+
-  theme_minimal()
 
 
 #############################################################################################
 
-final_PCA <- ggplot() +
+final_PCA_habitat <- ggplot() +
   geom_point(data = ind_viz_data, 
              aes(x = Dim.1, y = Dim.2, 
                  color = Habitat, fill = Habitat, 
@@ -195,14 +166,22 @@ final_PCA <- ggplot() +
                level = 0.90, 
                alpha = 0.1,
                show.legend = NA)+ 
+  
+  stat_ellipse(data = ind_viz_data, 
+               aes(x = Dim.1, y = Dim.2, 
+                   group = Habitat, 
+                   color = Habitat), 
+               geom = "path", 
+               level = 0.90, 
+               linewidth = 0.3,  # Adjust this value to make the line bold
+               show.legend = NA) +
+  
   scale_fill_manual(values = c("Containers" = "orange",
                                "Gutters" = "red",
                                "Puddles" = "black",
                                "Tyre track"= "brown",
-                               "Used Tyres" = "darkgreen",
-                               "Derived Savanna"= "orange",
-                               "Freshwater Swamp" = "blue",
-                               "Lowland Rainforest"= "darkgreen")) +
+                               "Used Tyres" = "darkgreen")) +
+  
   scale_color_manual(values = c("orange", "red", "black", "brown","darkgreen"))+
   theme(
     text = element_text(family = "Times New Roman", size = 20),
@@ -210,3 +189,39 @@ final_PCA <- ggplot() +
   theme_minimal() +
   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "black")
+
+
+######################################################################################
+
+final_PCA_Ecozone <- ggplot() +
+  geom_point(data = ind_viz_data, 
+             aes(x = Dim.1, y = Dim.2, 
+                 color = Ecozones, 
+                 shape  = Ecozones),
+             size = 3) + 
+  stat_ellipse(data = ind_viz_data,  
+               geom = "polygon", 
+               aes(x = Dim.1, y = Dim.2, group = Ecozones, fill = Ecozones),
+               level = 0.95, 
+               alpha = 0.08,
+               show.legend = NA)+ 
+  
+  stat_ellipse(data = ind_viz_data, 
+               aes(x = Dim.1, y = Dim.2, 
+                   group = Ecozones, 
+                   color = Ecozones), 
+               geom = "path", 
+               level = 0.95, 
+               linewidth = 0.5,  # Adjust this value to make the line bold
+               show.legend = NA) +
+  
+ scale_colour_manual(values = c("orange",  "darkgreen", "red"))+
+ scale_fill_manual(values = c("yellow", "green", "red"))+
+                              
+  theme(
+    text = element_text(family = "Times New Roman", size = 20),
+  ) + labs(x = "Dim1 (41.2%)", y = "Dim2 (14.3%)")+
+  theme_minimal() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "black")
+final_PCA_Ecozone
