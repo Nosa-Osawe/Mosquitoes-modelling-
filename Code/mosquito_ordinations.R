@@ -88,7 +88,7 @@ Location <- omo[,"Location"]
 omo_physic_PCA <- cbind(Location, omo_physicochemical)
 head(omo_physic_PCA) # well done
 
-rownames(omo_physic_PCA) <- omo_physic_PCA$Location
+# rownames(omo_physic_PCA) <- omo_physic_PCA$Location
 
 omo_physic_PCA_active <- omo_physic_PCA[,-1]
 omo.pca <- PCA(omo_physic_PCA_active, graph = FALSE)
@@ -195,6 +195,7 @@ final_PCA_habitat <- ggplot() +
   theme_minimal() +
   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "black")
+
 
 
 ######################################################################################

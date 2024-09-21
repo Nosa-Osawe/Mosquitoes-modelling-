@@ -10,15 +10,25 @@ library(car)
 
 omo_Data <- read.csv("C:\\Users\\DELL\\Documents\\Git in R\\Mosquitoes-modelling-\\Data\\Updated_Omo_Phd.csv",
                      stringsAsFactors = TRUE)
-view(omo_Data)
-
-str(omo_Data)
+ 
 ####  Data cleaning
 length(colnames(omo_Data))  
 
 omo<- omo_Data[,1:24]    
 view(omo)
 attach(omo)
+
+library(dplyr)
+
+
+omo <- omo %>%
+  mutate(ecozone = if_else(Ecozones == "Lowland Rainforest", 
+                           "Lowland Forest", 
+                           Ecozones)) %>% 
+  select(-Ecozones) %>% 
+  rename("Ecozones" = ecozone) %>% 
+  select(Ecozones, everything()) %>%
+  as.data.frame()
 
 attach(omo)
 sum(is.na(omo))  ###  No missing value
