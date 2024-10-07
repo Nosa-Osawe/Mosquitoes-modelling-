@@ -8,3 +8,9 @@ We had about 20 physicochemical parameters to play with. so, we rather performed
 Hey! You could check the codes yourself! 
 
 **Project is still in progress.."
+
+## How to use the repo
+
+1. find the codes in the <codes> folder
+2. All dataset are available in the <data> folder
+3. Notes-- you'd likewise find them in the <Notes> folder
