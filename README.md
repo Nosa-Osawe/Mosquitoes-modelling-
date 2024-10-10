@@ -11,6 +11,6 @@ Hey! You could check the codes yourself!
 
 ## How to use the repo
 
-1. find the codes in the <codes> folder
-2. All dataset are available in the <data> folder
-3. Notes-- you'd likewise find them in the <Notes> folder
+1. find the codes in the  **codes** folder
+2. All dataset are available in the **data** folder
+3. Notes-- you'd likewise find them in the **Notes** folder
