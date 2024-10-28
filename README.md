@@ -6,7 +6,7 @@ I and Dr Omoregie are trying to link up the phyisicochemical properties of larva
 We had about 20 physicochemical parameters to play with. so, we rather performed some dimension reduction analysis and pick the most important components. The most important loadings are use used as predictors for a Generalized linear mixed effect models
 
 Hey! You could check the codes yourself! 
-
+PCA|MIXED MODELLING|CORRESPONDENCE ANAYSIS|DATA AGGREGATION AND MAIPULATION
 **Project is still in progress.."
 
 ## How to use the repo
