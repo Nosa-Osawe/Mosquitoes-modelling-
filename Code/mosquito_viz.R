@@ -106,9 +106,83 @@ Aedes<- ggplot(aes(x=Habitat, y= Aedes, fill = Habitat), data = omo)+
          width = 7, height = 5)
   
   
+  culex_dotplot <- ggplot(omo, aes(x = Habitat, y = Cules, fill = Habitat)) +
+    # Use summary statistics for points
+    stat_summary(fun = mean, geom = "point",
+                 position = position_dodge(width = 0.8),
+                 color = "black", size = 5, alpha = 1) +
+    # Error bars
+    stat_summary(fun.data = mean_se, geom = "errorbar",
+                 position = position_dodge(width = 0.8),
+                 width = 0.3, size = 1.2, color = "black") +
+    # Jittered points for individual data
+    geom_point(aes(color = Habitat),
+               position = position_jitterdodge(jitter.width = 0.7, dodge.width = 1),
+               size = 4, alpha = 0.6) +
+    # Customize colors
+    scale_fill_manual(values = very_light_fill_manual) +
+    scale_color_manual(values = fill_manual) +
+    # Labels
+    labs(x = "Habitat", y = expression(italic("Culex")~ "spp.")) +
+    # Theme adjustments
+    theme_bw() +
+    theme(
+      text = element_text(family = "Times New Roman", size = 16),
+      legend.position = "none"
+    )
+  culex_dotplot 
   
   
   
+  
+  Aedes_dotplot <- ggplot(omo, aes(x = Habitat, y = Aedes, fill = Habitat)) +
+    # Use summary statistics for points
+    stat_summary(fun = mean, geom = "point",
+                 position = position_dodge(width = 0.8),
+                 color = "black", size = 5, alpha = 1) +
+    # Error bars
+    stat_summary(fun.data = mean_se, geom = "errorbar",
+                 position = position_dodge(width = 0.8),
+                 width = 0.3, size = 1.2, color = "black") +
+    # Jittered points for individual data
+    geom_point(aes(color = Habitat),
+               position = position_jitterdodge(jitter.width = 0.7, dodge.width = 1),
+               size = 4, alpha = 0.6) +
+    # Customize colors
+    scale_fill_manual(values = very_light_fill_manual) +
+    scale_color_manual(values = fill_manual) +
+    # Labels
+    labs(x = "Habitat", y = expression(italic("Aedes")~ "spp.")) +
+    # Theme adjustments
+    theme_bw() +
+    theme(
+      text = element_text(family = "Times New Roman", size = 16),
+      legend.position = "none"
+    )
+  Aedes_dotplot 
+  
+  
+  
+  
+  Anopheles_dotplot <- ggplot(omo, aes(x = Habitat, y = Anopheles, fill = Habitat)) +
+    stat_summary(fun = mean, geom = "point",
+                 position = position_dodge(width = 0.8),
+                 color = "black", size = 5, alpha = 1) +
+    stat_summary(fun.data = mean_se, geom = "errorbar",
+                 position = position_dodge(width = 0.8),
+                 width = 0.3, size = 1.2, color = "black") +
+    geom_point(aes(color = Habitat),
+               position = position_jitterdodge(jitter.width = 0.7, dodge.width = 1),
+               size = 4, alpha = 0.6) +
+    scale_fill_manual(values = very_light_fill_manual) +
+    scale_color_manual(values = fill_manual) +
+    labs(x = "   ", y = expression(italic("Anopheles")~ "spp.")) +
+    theme_bw() +
+    theme(
+      text = element_text(family = "Times New Roman", size = 16),
+      legend.position = "none"
+    )
+  Anopheles_dotplot 
   
   # EMF file
   
