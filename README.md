@@ -14,3 +14,11 @@ PCA|MIXED MODELLING|CORRESPONDENCE ANAYSIS|DATA AGGREGATION AND MAIPULATION
 1. find the codes in the  **codes** folder
 2. All dataset are available in the **data** folder
 3. Notes-- you'd likewise find them in the **Notes** folder
+
+## Mosquito Abundance
+
+![](https://github.com/Nosa-Osawe/Mosquitoes-modelling-/blob/main/Figures/Mosquito%20abundance.jpg?raw=True)
+
+
+## Habitat-type variation in physicochemical properties
+
