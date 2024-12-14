@@ -22,5 +22,4 @@ PCA|MIXED MODELLING|CORRESPONDENCE ANAYSIS|DATA AGGREGATION AND MAIPULATION
 
 ## Habitat-type variation in physicochemical properties
 
-![](https://github.com/Nosa-Osawe/Mosquitoes-modelling-/blob/main/Figures/physicochemical%20habitat%20qual.jpg?raw=True)
-<img src="https://github.com/Nosa-Osawe/Mosquitoes-modelling-/blob/main/Figures/physicochemical%20habitat%20qual.jpg?raw=True" alt="Habitat Qual" width="400">
+<img src="https://github.com/Nosa-Osawe/Mosquitoes-modelling-/blob/main/Figures/physicochemical%20habitat%20qual.jpg?raw=True" width="400">
